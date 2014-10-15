@@ -57,6 +57,11 @@ class FilterPaneService {
                             filterParse(criteria, nextDomainClass, params, nextFilterParams, nextFilterOpParams, doCount)
                         }
                     }
+                } else if (filterOp == FilterPaneOperationType.InList.operation || filterOp == FilterPaneOperationType.NotInList.operation && rawValue instanceof List) {
+                    def thisDomainProp = FilterPaneUtils.resolveDomainProperty(domainClass, propName)
+                    def val = rawValue.collect { value -> parseValue(thisDomainProp, value, filterParams, null)}
+                    log.debug("== propName is ${propName}, rawValue is ${rawValue}, val is ${val} of type ${val?.class} val2 is ${val2} of type ${val2?.class}")
+                    addCriterion(criteria, propName, filterOp, val, null, filterParams, thisDomainProp)
                 } else {
                     def thisDomainProp = FilterPaneUtils.resolveDomainProperty(domainClass, propName)
                     def val = parseValue(thisDomainProp, rawValue, filterParams, null)
