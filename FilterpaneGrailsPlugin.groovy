@@ -1,4 +1,5 @@
 class FilterpaneGrailsPlugin {
+    def groupId = "com.autorei"
     def version = "2.4.2-1"
     def grailsVersion = "1.3 > *"
 
